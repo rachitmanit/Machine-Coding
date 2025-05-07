@@ -70,6 +70,13 @@ class LoggerQueueBased(AbstractLogger, metaclass=MetaSingleton):
         self.queue_thread.join()
         print("queue_thread exited")
 
+        while not self._queue.empty():
+            try:
+                log_level, message = self._queue.get(timeout=1)
+                self.format_and_write(log_level, message)
+            except queue.Empty:
+                continue
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("Inside LoggerWithQueue __exit__")
         self.shutdown()

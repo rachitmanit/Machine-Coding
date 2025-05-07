@@ -74,11 +74,7 @@ def test_log_with_queue_100times():
         logger.error("Error Message{}".format(counter))
         counter += 1
 
-    print("Queue Size before sleep: {}".format(logger._queue.qsize()))
-
-    time.sleep(1)
-
-    print("Queue Size after sleep: {}".format(logger._queue.qsize()))
+    print("Queue Size after adding logs: {}".format(logger._queue.qsize()))
 
     logger.shutdown()
 
