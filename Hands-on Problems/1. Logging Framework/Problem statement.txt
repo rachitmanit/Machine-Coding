@@ -33,7 +33,7 @@ Implement or discuss design and partial code if not enough time:
 - Use a background thread or thread pool to write logs.
 - Use a queue (e.g., queue.Queue) – Producer-Consumer model.
 
-8. File Rotation:
+8. Log File Rotation:
 - If file size exceeds a limit (e.g., 10 MB), create a new log file with a timestamp.
 
 9. Custom Formatters:
