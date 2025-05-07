@@ -10,7 +10,8 @@ class FileOPHandler(AbstractOutputHandler):
         self._filehandler.writelines(text + "\n")
 
     def close(self):
-        self._filehandler.close()
+        if self._filehandler:
+            self._filehandler.close()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
