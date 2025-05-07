@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
-from .LogLevel import LogLevel
 
 class AbstractLogger(ABC):
 
-    def __init__(self, output_handler, log_level=LogLevel.DEBUG):
+    def __init__(self, output_handler, log_level):
         self.output_handler = output_handler
         self.log_level = log_level
 

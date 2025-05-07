@@ -4,10 +4,18 @@ class FileOPHandler(AbstractOutputHandler):
 
     def __init__(self, file_name):
         self.file_name = file_name
-        self._filehandler = open(self.file_name, 'a+')
+        try:
+            self._filehandler = open(self.file_name, 'a+')
+        except Exception as exp:
+            print("Error opening file {} by FileOPHandler".format(self.file_name))
+            self._filehandler = None
 
     def write(self, text):
-        self._filehandler.writelines(text + "\n")
+        try:
+            if self.file_name:
+                self._filehandler.writelines(text + "\n")
+        except Exception as exp:
+            print("Failed to write message in file {}".format(self.file_name))
 
     def close(self):
         if self._filehandler:
