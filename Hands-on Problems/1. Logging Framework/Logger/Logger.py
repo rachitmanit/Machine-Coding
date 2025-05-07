@@ -1,12 +1,10 @@
 import threading
 import time
-
-from Helper.Singleton import Singleton
+from Helper.MetaSingleton import MetaSingleton
 from .AbstractLogger import AbstractLogger
 from .LogLevel import LogLevel
 
-@Singleton
-class Logger(AbstractLogger):
+class Logger(AbstractLogger, metaclass=MetaSingleton):
     def __init__(self, output_handler, log_level=LogLevel.DEBUG):
         super().__init__(output_handler=output_handler, log_level=log_level)
         print("Initialised Logger....")

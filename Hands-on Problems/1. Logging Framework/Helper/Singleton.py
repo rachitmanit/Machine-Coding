@@ -1,15 +1,13 @@
 import threading
 
 
-class Singleton:
-    def __init__(self, cls):
-        self._instance = None
-        self.cls = cls
-        self.lock = threading.Lock()
+class Singleton(type):
+    _instances = {}
+    _lock = threading.Lock()
 
-    def __call__(self, *args, **kwargs):
-        if self._instance is None:
-            with self.lock:
-                if self._instance is None:
-                    self._instance = self.cls(*args, **kwargs)
-        return self._instance
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            with cls._lock:
+                if cls not in cls._instances:
+                    cls._instances[cls] = super().__call__(*args, **kwargs)
+        return cls._instances[cls]

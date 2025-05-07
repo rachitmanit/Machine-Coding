@@ -1,6 +1,3 @@
-import os.path
-from traceback import print_tb
-
 from Logger.LogLevel import LogLevel
 from Logger.Logger import Logger
 from OutputHandler.FileOutputHandler import FileOPHandler
