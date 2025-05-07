@@ -1,5 +1,8 @@
+import time
+
 from Logger.LogLevel import LogLevel
 from Logger.Logger import Logger
+from Logger.LoggerWithQueue import LoggerQueueBased
 from OutputHandler.FileOutputHandler import FileOPHandler
 from OutputHandler.ConsoleOutputHandler import ConsoleOPHandler
 
@@ -39,7 +42,7 @@ def test_file_output():
     logger.warn("Warn Message4")
     logger.error("Error Message4")
 
-def test_case_test_log_rotate():
+def test_log_rotate():
     logger = Logger(ConsoleOPHandler(), LogLevel.WARN)
     logger.set_output_handler(FileOPHandler("log.txt", rotation_check_interval=2))
     counter = 0
@@ -50,6 +53,37 @@ def test_case_test_log_rotate():
         logger.warn("Warn Message{}".format(counter))
         logger.error("Error Message{}".format(counter))
 
+def test_log_with_queue():
+    counter = 999
+    logger = LoggerQueueBased(FileOPHandler("log_with_queue.txt", rotation_check_interval=2))
+    logger.debug("Debug Message{}".format(counter))
+    logger.info("Info Message{}".format(counter))
+    logger.warn("Warn Message{}".format(counter))
+    logger.error("Error Message{}".format(counter))
+
+    time.sleep(2)
+    logger.shutdown()
+
+def test_log_with_queue_100times():
+    counter = 1000
+    logger = LoggerQueueBased(ConsoleOPHandler())
+    while counter < 1100:
+        logger.debug("Debug Message{}".format(counter))
+        logger.info("Info Message{}".format(counter))
+        logger.warn("Warn Message{}".format(counter))
+        logger.error("Error Message{}".format(counter))
+        counter += 1
+
+    print("Queue Size before sleep: {}".format(logger._queue.qsize()))
+
+    time.sleep(1)
+
+    print("Queue Size after sleep: {}".format(logger._queue.qsize()))
+
+    logger.shutdown()
+
+    print("Queue Size after shutdown: {}".format(logger._queue.qsize()))
+
 if __name__ == '__main__':
     # Test 1
     test_console_output_with_updates()
@@ -58,9 +92,10 @@ if __name__ == '__main__':
     test_file_output()
 
     # Test 3
-    # test_case_test_log_rotate()
+    test_log_rotate()
 
+    # Test 4
+    test_log_with_queue()
 
-    # print(os.path.getsize("log.txt") / 1024**2 )
-    # print(os.path.getsize("log.txt_20250507_183858") / 1024**2 )
-    # print(os.path.getsize("log.txt_20250507_183906") / 1024**2 )
+    # Test 5
+    test_log_with_queue_100times()
