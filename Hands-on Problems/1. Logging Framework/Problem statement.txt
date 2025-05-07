@@ -1,0 +1,46 @@
+✅ Full Problem Statement (Realistic + Complete)
+🚀 Implement a Logging Framework
+Your task is to build a scalable logging framework that can be used across multiple services in a company’s platform. The system should be modular, extensible, and thread-safe.
+
+🔸 Core Requirements
+Implement these fully in code:
+
+1. Log Levels:
+- Support: DEBUG, INFO, WARN, ERROR.
+- Logs below the configured level should not be printed.
+
+2. Output Modes:
+- Console (default)
+- File (optional, based on config)
+- Format: [TIMESTAMP] [LEVEL] - MESSAGE
+
+3. Singleton Logger:
+- Only one instance should exist in the application.
+
+4. Dynamic Configuration:
+- Change log level or output mode at runtime.
+
+5. Thread Safety:
+- Multiple threads can log concurrently.
+
+6. Basic Unit Testing:
+- Demonstrate usage through simple function calls and test scenarios.
+
+🔸 Advanced Requirements (for senior roles or if time permits)
+Implement or discuss design and partial code if not enough time:
+
+7. Asynchronous Logging:
+- Use a background thread or thread pool to write logs.
+- Use a queue (e.g., queue.Queue) – Producer-Consumer model.
+
+8. File Rotation:
+- If file size exceeds a limit (e.g., 10 MB), create a new log file with a timestamp.
+
+9. Custom Formatters:
+- Plug-in different formats (e.g., JSON, plain text) using Strategy Pattern.
+
+10. Support for Tags/Modules:
+- E.g., [PAYMENT_SERVICE][ERROR] - message.
+
+11. Extensibility:
+- New log levels or output sinks (e.g., remote servers) should be easy to add.
