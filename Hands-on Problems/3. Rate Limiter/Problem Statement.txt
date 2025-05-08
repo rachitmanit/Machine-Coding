@@ -1,0 +1,51 @@
+✅ LLD / Machine Coding Problem: Design a Rate Limiter
+📌 Problem Statement
+Design and implement a Rate Limiter service that controls how many requests a user/client/IP can make to an API in a given time window. The system should support multiple rate limiting strategies and be designed in a way that is thread-safe, extensible, and production-ready.
+
+You are building a middleware/service that API gateway or backend microservices can call to check whether a request should be allowed.
+
+✅ Core Requirements (Must be implemented in ~45 mins)
+1. Limiter Interface & Strategy Support
+- Support for at least two algorithms:
+    - Fixed Window Counter
+    - Sliding Window Log
+
+2. Use Strategy Pattern to plug in different rate-limiting algorithms.
+- LimiterService:
+    - Accepts a (user_id, timestamp) or (api_key, timestamp) and returns True (allow) or False (rate-limited).
+- Use in-memory storage for request timestamps / counters.
+
+3. Thread Safety
+- The system should handle multiple concurrent users.
+- Ensure data structures are thread-safe and race conditions are avoided.
+
+4. Rate Limiting Configuration
+- Allow per-user / per-client configuration like:
+    - Max Requests
+    - Time Window in seconds
+- Store and manage configs in memory.
+
+5. Clean Design and Modularity
+- Clear class responsibilities.
+- Extensible to add more strategies (e.g., Token Bucket, Leaky Bucket).
+- No hardcoding of strategies or logic.
+
+🌟 Advanced Requirements (Discuss or implement if time permits)
+6. Token Bucket Strategy
+- Implement a 3rd algorithm using Token Bucket if time allows.
+- Tokens are refilled periodically.
+
+7. Background Refill / Cleaner Thread
+- A background thread that cleans up stale data for memory efficiency (e.g., outdated timestamps in Sliding Window Log).
+
+8. Async Compatibility
+- Code should be ready for async execution or allow easy plug-in with async APIs.
+
+9. Monitoring / Logging (Discussion)
+- Discuss how to collect stats like:
+    - Total requests
+    - Blocked requests
+    - Peak usage time
+
+10. Pluggable Persistence (Discussion)
+- How to persist logs or counters to Redis or a distributed cache in real-world deployment.
