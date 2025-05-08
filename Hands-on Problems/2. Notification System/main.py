@@ -1,7 +1,9 @@
+import time
 import traceback
 
 from Channels.ChannelTypes import ChannelTypes
 from NotificationService.NotificationService import NotificationService
+from NotificationService.NotificationServiceWithQueue import NotificationServiceWithQueue
 from User.User import User
 
 def test_notifications():
@@ -111,9 +113,48 @@ def test_deregister():
     print ("End of test case")
     print("---------------------------------")
 
+def test_notifications_with_queue():
+    rachit = User("Rachit", "a@gmail.com", "123456", "apple_15")
+    deepanshi = User("Deepanshi", "b@gmail.com", "234567", "pixel_9")
+    ns = NotificationServiceWithQueue()
+    ns.register_user(rachit)
+    ns.register_user(deepanshi)
+
+    ns.subscribe_channel(rachit.name, ChannelTypes.SMS)
+    ns.subscribe_channel(rachit.name, ChannelTypes.PUSH)
+
+    ns.subscribe_channel(deepanshi.name, ChannelTypes.EMAIL)
+    ns.subscribe_channel(deepanshi.name, ChannelTypes.PUSH)
+
+    ns.notify(
+        [rachit.name, deepanshi.name],
+        [ChannelTypes.SMS],
+        "Hello There")
+
+    ns.notify(
+        [rachit.name, deepanshi.name],
+        [ChannelTypes.PUSH],
+        "Hello There")
+
+    ns.notify(
+        [rachit.name, deepanshi.name],
+        [ChannelTypes.SMS, ChannelTypes.PUSH, ChannelTypes.EMAIL],
+        "Hello There")
+
+    print("Watch them processing")
+    time.sleep(1)
+
+    ns.shutdown()
+
+    print("---------------------------------")
+    print("End of test case")
+    print("---------------------------------")
+
 if __name__ == '__main__':
     # test_notifications()
 
     # test_unsubscribe()
 
-    test_deregister()
+    # test_deregister()
+
+    test_notifications_with_queue()
