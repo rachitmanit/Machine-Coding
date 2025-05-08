@@ -1,0 +1,47 @@
+📌 Problem Statement: Design a Scalable Notification System
+🎯 Objective
+Design and implement a Notification System that supports multiple channels (e.g., Email, SMS, Push) to deliver messages to users. The system should be extensible, handle high concurrency, ensure reliable delivery, and support retry mechanisms.
+Medium
+
+✅ Core Requirements
+1. User Registration & Subscription
+- Users can register with the system.
+- Users can subscribe/unsubscribe to various notification channels (Email, SMS, Push).
+
+
+2. Notification Creation
+- Support creation of notifications with content, target users, and specified channels.
+
+3. Delivery Mechanism
+- Implement a mechanism to deliver notifications to users via their subscribed channels.
+- Ensure that each notification is delivered exactly once per channel per user.
+
+
+4. Concurrency Handling
+- The system should handle multiple notifications and user subscriptions concurrently.
+- Ensure thread-safe operations to prevent data races and inconsistencies.
+
+5. Retry Mechanism
+- If a notification delivery fails, the system should retry delivery up to a configurable number of times.
+- Implement exponential backoff strategy between retries.
+
+6. Extensibility
+- Design the system to easily add new notification channels in the future without major changes to existing code.
+
+🚀 Advanced Requirements
+7. Priority Handling
+- Notifications can have priorities (High, Medium, Low).
+- High-priority notifications should be delivered before lower-priority ones.
+
+8. Scheduling
+- Support scheduling notifications to be sent at a specific time.
+
+9. Rate Limiting
+- Implement rate limiting to prevent overwhelming any single channel (e.g., max 100 emails per minute).
+
+10. Monitoring & Logging
+- Log all notification deliveries, successes, failures, and retries.
+
+11. Provide metrics for monitoring system performance and health.
+
+12. Persistence
