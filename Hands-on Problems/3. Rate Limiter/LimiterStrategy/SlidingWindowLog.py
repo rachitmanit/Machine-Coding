@@ -1,11 +1,10 @@
 import threading
 import time
 
-from Configuration.LimiterConfiguration import LimiterConfiguration
-from .AbstractStrategy import AbstractStrategy
+from .AbstractLimiterStrategy import AbstractLimiterStrategy
 
 
-class SlidingWindowLog(AbstractStrategy):
+class SlidingWindowLog(AbstractLimiterStrategy):
 
     def __init__(self):
         self.users = dict()

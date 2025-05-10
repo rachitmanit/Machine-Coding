@@ -1,4 +1,4 @@
-class LimiterConfiguration:
+class WindowLimiterConfiguration:
 
     def __init__(self, limit, max_requests):
         self.limit = limit
