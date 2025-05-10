@@ -10,6 +10,10 @@ class FixedWindowCounter(AbstractLimiterStrategy):
         self._lock = threading.Lock()
 
     def register_user(self, user_id, config):
+        if user_id in self.users:
+            print("User: {} is already registered".format(user_id))
+            return
+
         if config is None:
             raise RuntimeError("config is None")
         with self._lock:

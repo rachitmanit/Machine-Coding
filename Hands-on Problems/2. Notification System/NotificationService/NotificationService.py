@@ -25,6 +25,10 @@ class NotificationService(metaclass=Singleton):
             self.channels[channel] = channel_class()
 
     def register_user(self, user):
+        if user.name in self.users:
+            print("User: {} is already registered".format(user.name))
+            return
+
         with self._lock:
             self.users[user.name] = user
             self._user_locks[user.name] = threading.Lock()

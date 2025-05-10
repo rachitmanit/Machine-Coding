@@ -55,6 +55,12 @@ class TokenBucket(AbstractLimiterStrategy):
         return self.can_process(user_id)
 
     def register_user(self, user_id, config):
+        if user_id in self.users:
+            print("User: {} is already registered".format(user_id))
+            return
+
+        if config is None:
+            raise RuntimeError("config is None")
         with self._lock:
             self.users[user_id] = dict()
             self.users[user_id]["remaining_tokens"] = config.get_refill_rate_per_interval()
