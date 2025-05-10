@@ -1,8 +1,8 @@
 from enum import Enum, auto
-from io import UnsupportedOperation
 
 from LimiterStrategy.FixedWindowCounter import FixedWindowCounter
 from LimiterStrategy.LeakyBucket import LeakyBucket
+from LimiterStrategy.SlidingWindowCounter import SlidingWindowCounter
 from LimiterStrategy.SlidingWindowLog import SlidingWindowLog
 from LimiterStrategy.TokenBucket import TokenBucket
 
@@ -11,6 +11,7 @@ class LimiterType(Enum):
     FixedWindow = auto()
     SlidingLog = auto()
     TokenBucket = auto()
+    SlidingWindowCounter = auto()
 
 class AsyncLimiterType(Enum):
     LeakyBucket = auto()
@@ -24,6 +25,8 @@ class LimitedProvider:
             return SlidingWindowLog()
         elif limiter_type == LimiterType.TokenBucket:
             return TokenBucket()
+        elif limiter_type == LimiterType.SlidingWindowCounter:
+            return SlidingWindowCounter()
 
         raise NotImplementedError("Unsupported limiter_type: {}".format(limiter_type))
 

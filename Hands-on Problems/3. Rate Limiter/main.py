@@ -111,6 +111,30 @@ def test_leaky_bucket():
     print("End of Test case")
     print("----------------------------------")
 
+def test_sliding_window_counter():
+    ls = LimiterService(LimiterType.SlidingWindowCounter)
+    user_id1 = 1
+    ls.register_user(user_id1, WindowLimiterConfiguration(5, 1))
+    time.sleep(1)
+    for i in range(6):
+        print("User request {} allowed : {}".format(i, ls.is_allowed(user_id1)))
+
+    print("Trying again for user: {}".format(user_id1))
+    for i in range(6):
+        time.sleep(2)
+        print("User request {} allowed : {}".format(i, ls.is_allowed(user_id1)))
+
+    print("----------------------------------")
+
+    # user_id2 = 2
+    # ls.register_user(user_id2, WindowLimiterConfiguration(10, 10))
+    # for i in range(16):
+    #     print("User request {} allowed : {}".format(i, ls.is_allowed(user_id2)))
+
+    print("----------------------------------")
+    print("End of Test case")
+    print("----------------------------------")
+
 if __name__ == '__main__':
 
     # test_fixed_window()
@@ -119,4 +143,6 @@ if __name__ == '__main__':
 
     # test_token_bucket()
 
-    test_leaky_bucket()
+    # test_leaky_bucket()
+
+    test_sliding_window_counter()
